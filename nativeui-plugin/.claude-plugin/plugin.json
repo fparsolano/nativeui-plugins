@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "nativeui",
+  "displayName": "NativeUI",
+  "description": "Author native iOS + Android apps with NativeUI from the Codex-canonical developer-agent contract. Requires NativeUI beta access.",
+  "version": "0.1.0",
+  "author": { "name": "NativeUI" },
+  "category": "app-development",
+  "keywords": ["nativeui", "ios", "android", "mobile", "design", "ux", "backend", "architecture", "deploy", "html", "css", "app-builder", "codegen"]
+}

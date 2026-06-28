@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Review"
+  short_description: "Final validation and handoff gate"
+  default_prompt: "Use $nativeui-review to run the strict final review before handoff or export."

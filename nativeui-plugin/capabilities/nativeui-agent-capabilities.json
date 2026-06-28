@@ -1,0 +1,230 @@
+{
+  "version": 2,
+  "description": "Capability coverage contract for the Codex-first NativeUI developer-agent surface. Tests keep rules, skills, tools, review gates, and mirrored docs synced when NativeUI gains new project features.",
+  "features": [
+    {
+      "id": "mobile-native-scope",
+      "description": "Mobile functionality means both iOS and Android; web export is unsupported for v1.",
+      "rules": [
+        "Mobile requests target both native platforms unless the user explicitly narrows scope.",
+        "Web requests are redirected to the native iOS + Android path for v1."
+      ],
+      "tools": ["nui-export.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["backend.native-target-missing", "backend.connector-parity"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["Mobile means both native targets", "Web is unsupported for v1"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["backend.native-target-missing", "backend.connector-parity"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["fails when Android and iOS connector class sets diverge"]
+        }
+      ],
+      "tests": ["test/final-review.test.mjs", "test/codex-parity.test.mjs"]
+    },
+    {
+      "id": "project-sync-guarded",
+      "description": "project.json changes are guarded against stale cloud/editor writes.",
+      "rules": [
+        "Check status before changing cloud-backed projects.",
+        "Push with expectedRevision and fail closed on stale writes."
+      ],
+      "tools": ["nui-project-sync.mjs"],
+      "reviewGates": ["expectedRevision", "409"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["project.json must be sync guarded", "nui-project-sync.mjs"]
+        },
+        {
+          "path": "bin/nui-project-sync.mjs",
+          "terms": ["status|pull|push", "expectedRevision"]
+        },
+        {
+          "path": "test/project-sync.test.mjs",
+          "terms": ["expectedRevision", "409"]
+        }
+      ],
+      "tests": ["test/project-sync.test.mjs", "test/codex-parity.test.mjs"]
+    },
+    {
+      "id": "account-secret-storage",
+      "description": "API keys and database credentials are stored account-side, never in project/native/source artifacts.",
+      "rules": [
+        "Register API/database library metadata in project.json.",
+        "Put secret values through account-side secret endpoints via stdin only."
+      ],
+      "tools": ["nui-library.mjs"],
+      "reviewGates": ["put-secret requires stdin", "Firebase-looking web API key"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["Secrets live in the user's account", "put-secret --secret-stdin"]
+        },
+        {
+          "path": "bin/nui-library.mjs",
+          "terms": ["Secrets are never written to project.json", "put-secret"]
+        },
+        {
+          "path": "test/library.test.mjs",
+          "terms": ["put-secret requires stdin", "profile secret endpoint"]
+        },
+        {
+          "path": "test/no-local-firebase-auth.test.mjs",
+          "terms": ["Identity Toolkit", "Firebase-looking web API key"]
+        }
+      ],
+      "tests": ["test/library.test.mjs", "test/no-local-firebase-auth.test.mjs"]
+    },
+    {
+      "id": "design-agent",
+      "description": "Loose/non-HTML/plain-static inputs produce a tested NativeUI design guide before authoring.",
+      "rules": [
+        "Invoke nativeui-design when the source is not production-ready HTML.",
+        "Capture responsive, portrait, landscape, motion, UX state, accessibility, and implementation guidance."
+      ],
+      "tools": ["nui-design-guide.mjs", "nui-responsive-audit.mjs"],
+      "reviewGates": ["nativeui-design-guide.md"],
+      "files": [
+        {
+          "path": "skills/nativeui-design/SKILL.md",
+          "terms": ["nativeui-design-guide.md", "portrait/landscape"]
+        },
+        {
+          "path": "bin/nui-design-guide.mjs",
+          "terms": ["Responsive Requirements", "Motion And Interaction"]
+        },
+        {
+          "path": "test/agent-artifacts.test.mjs",
+          "terms": ["nui-design-guide", "design guide contract"]
+        },
+        {
+          "path": "test/skill-inventory.test.mjs",
+          "terms": ["nativeui-design", "styling guide"]
+        }
+      ],
+      "tests": ["test/agent-artifacts.test.mjs", "test/skill-inventory.test.mjs"]
+    },
+    {
+      "id": "architect-agent",
+      "description": "Backend/deployment work is gated by a tested architecture record and explicit approval.",
+      "rules": [
+        "Audit existing repo/backend/deployment shape before choosing a stack.",
+        "Do not scaffold, deploy, or wire backend work until the architecture record is approved."
+      ],
+      "tools": ["nui-architecture.mjs", "nui-backend-plan.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["architecture.missing", "architecture.unapproved", "architecture.sections-missing"],
+      "files": [
+        {
+          "path": "skills/nativeui-architect/SKILL.md",
+          "terms": ["nativeui-architecture.md", "approval"]
+        },
+        {
+          "path": "skills/nativeui-backend/SKILL.md",
+          "terms": ["nativeui-architect", "approved"]
+        },
+        {
+          "path": "bin/nui-architecture.mjs",
+          "terms": ["--require-approved", "User approved this architecture"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["architecture.missing", "architecture.unapproved"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["approved architecture", "architecture.missing"]
+        }
+      ],
+      "tests": ["test/agent-artifacts.test.mjs", "test/final-review.test.mjs", "test/skill-inventory.test.mjs"]
+    },
+    {
+      "id": "clean-prod-default",
+      "description": "Clean/prod native export is the default; beta is reserved for parity instrumentation.",
+      "rules": [
+        "Default exports should be runnable production-style native projects.",
+        "Use beta only when the parity harness is explicitly needed."
+      ],
+      "tools": ["nui-export.mjs", "nui-run.mjs"],
+      "reviewGates": ["--beta"],
+      "files": [
+        {
+          "path": "README.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "skills/nativeui-export/SKILL.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "skills/nativeui-run/SKILL.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "bin/nui-export.mjs",
+          "terms": ["CLEAN", "--beta"]
+        }
+      ],
+      "tests": ["test/fail-closed.test.mjs", "test/node-check.test.mjs"]
+    },
+    {
+      "id": "repeater-data-coverage",
+      "description": "Repeaters preserve preview rows and require registered API/database data sources for live data.",
+      "rules": [
+        "Provide sampleItems for native preview expansion.",
+        "Register live data sources as API/database library items before connector wiring."
+      ],
+      "tools": ["nui-backend-plan.mjs", "nui-connectors-plan.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["repeater.datasource-unregistered", "repeater.datasource-live-unregistered"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["repeater.sampleItems", "sampleItems"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["repeater.datasource-unregistered", "sampleItems"]
+        },
+        {
+          "path": "bin/nui-backend-plan.mjs",
+          "terms": ["repeaters", "sampleItems"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["repeater.datasource-live-unregistered", "sampleItems"]
+        }
+      ],
+      "tests": ["test/backend-plan.test.mjs", "test/final-review.test.mjs"]
+    },
+    {
+      "id": "gradient-import-scope",
+      "description": "Radial gradients are supported; conic/repeating gradients are still guarded as degraded import surface.",
+      "rules": [
+        "Use supported linear-gradient/radial-gradient for native fidelity.",
+        "Warn on conic/repeating gradient usage."
+      ],
+      "tools": ["nui-final-review.mjs"],
+      "reviewGates": ["css.gradient-unsupported"],
+      "files": [
+        {
+          "path": "skills/nativeui/references/authoring-rules.md",
+          "terms": ["radial-gradient", "conic-gradient"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["radial-gradient", "conic-gradient"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["radial gradients", "conic gradients"]
+        }
+      ],
+      "tests": ["test/final-review.test.mjs"]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "nativeui",
+  "version": "0.1.0",
+  "description": "Author native iOS + Android apps with NativeUI. Requires NativeUI beta access.",
+  "author": {
+    "name": "NativeUI"
+  },
+  "skills": "./skills/",
+  "keywords": [
+    "nativeui",
+    "ios",
+    "android",
+    "mobile",
+    "html",
+    "css",
+    "codegen"
+  ],
+  "interface": {
+    "displayName": "NativeUI",
+    "shortDescription": "Build native iOS and Android apps from HTML/CSS. Requires NativeUI beta access.",
+    "longDescription": "NativeUI helps Codex author mobile-first HTML/CSS screens, import them into NativeUI project JSON, export native iOS and Android projects, and wire app behavior through NuiBackend connectors. NativeUI beta access is required to use the hosted import/export service.",
+    "developerName": "NativeUI",
+    "category": "App Development",
+    "capabilities": [
+      "Write",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Build a NativeUI mobile app",
+      "Export this NativeUI project",
+      "Wire backend behavior into my app"
+    ],
+    "brandColor": "#111827"
+  }
+}

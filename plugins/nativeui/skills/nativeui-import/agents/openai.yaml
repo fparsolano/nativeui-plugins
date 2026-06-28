@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Import"
+  short_description: "Import HTML/CSS into project.json"
+  default_prompt: "Use $nativeui-import to import these HTML/CSS files into a NativeUI project.json."

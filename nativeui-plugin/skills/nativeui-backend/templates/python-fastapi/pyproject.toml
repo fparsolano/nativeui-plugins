@@ -1,0 +1,19 @@
+# Optional — for Poetry users. If you use requirements.txt (pip), ignore this file.
+#   poetry install
+#   poetry run uvicorn main:app --reload
+[tool.poetry]
+name = "nativeui-backend"
+version = "0.1.0"
+description = "Backend server for an exported NativeUI app"
+authors = ["you <you@example.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "*"
+uvicorn = { version = "*", extras = ["standard"] }
+pydantic-settings = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

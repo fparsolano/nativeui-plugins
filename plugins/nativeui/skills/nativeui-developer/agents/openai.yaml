@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Developer"
+  short_description: "Codex-canonical functionality orchestration"
+  default_prompt: "Use $nativeui-developer to implement this functionality across all NativeUI native exports."

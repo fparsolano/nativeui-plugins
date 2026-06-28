@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Export"
+  short_description: "Export project.json to native projects"
+  default_prompt: "Use $nativeui-export to export this project.json to Android and iOS native projects."

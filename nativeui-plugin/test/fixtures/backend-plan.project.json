@@ -1,0 +1,117 @@
+{
+  "version": 4,
+  "projectName": "Backend Plan Fixture",
+  "stages": [
+    {
+      "name": "Login",
+      "stageId": "stage-login",
+      "stageWidth": 412,
+      "stageHeight": 915,
+      "rootNodes": [
+        {
+          "kind": "javafx.scene.layout.VBox",
+          "id": "login_screen",
+          "children": [
+            {
+              "kind": "javafx.scene.control.TextField",
+              "id": "email_field",
+              "promptText": "Email"
+            },
+            {
+              "kind": "javafx.scene.control.PasswordField",
+              "id": "password_field",
+              "promptText": "Password"
+            },
+            {
+              "kind": "javafx.scene.layout.VBox",
+              "id": "login_form",
+              "interactions": [
+                {
+                  "id": "ix-submit-login",
+                  "trigger": "SUBMIT",
+                  "action": "SUBMIT_FORM",
+                  "params": { "action": "/auth/login", "method": "post" }
+                }
+              ]
+            },
+            {
+              "kind": "javafx.scene.control.Button",
+              "id": "load_profile_button",
+              "text": "Load profile",
+              "interactions": [
+                {
+                  "id": "ix-call-profile",
+                  "trigger": "CLICK",
+                  "action": "CALL_API",
+                  "targetLibraryItemId": "lib-api-profile",
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "kind": "javafx.scene.layout.VBox",
+              "id": "results_list",
+              "repeater": {
+                "enabled": true,
+                "adapterId": "adapter-results",
+                "itemName": "item",
+                "previewCount": 2
+              },
+              "children": [
+                {
+                  "kind": "javafx.scene.control.Label",
+                  "id": "result_title",
+                  "text": "{{item.title}}"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "interactions": [
+        {
+          "id": "ix-onload-feed",
+          "trigger": "ON_LOAD",
+          "action": "CALL_DATABASE",
+          "targetLibraryItemId": "lib-db-feed",
+          "params": {}
+        }
+      ]
+    }
+  ],
+  "libraryItems": [
+    {
+      "id": "lib-api-profile",
+      "name": "Get Profile",
+      "assetType": "api",
+      "configJson": "{\"method\":\"GET\",\"path\":\"/api/profile\",\"requestBody\":null}"
+    },
+    {
+      "id": "lib-db-feed",
+      "name": "Feed",
+      "assetType": "database",
+      "configJson": "{\"operation\":\"query\",\"table\":\"posts\"}"
+    },
+    {
+      "id": "lib-api-results",
+      "name": "Search Results",
+      "assetType": "api",
+      "configJson": "{\"method\":\"GET\",\"path\":\"/api/results\"}"
+    }
+  ],
+  "dataAdapters": [
+    {
+      "id": "adapter-results",
+      "name": "Search Results Adapter",
+      "sourceLibraryItemId": "lib-api-results",
+      "sourceKind": "api",
+      "collectionPath": "data.results",
+      "itemName": "item",
+      "fieldMappings": { "title": "title" },
+      "sampleItems": [
+        { "title": "Alpha" },
+        { "title": "Beta" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Design"
+  short_description: "Style guide, UX, motion, responsive layouts"
+  default_prompt: "Use $nativeui-design to turn this app idea into a NativeUI styling guide and responsive screen direction."

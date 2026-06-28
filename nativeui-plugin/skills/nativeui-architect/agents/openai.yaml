@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Architect"
+  short_description: "Backend, local dev, deploy architecture"
+  default_prompt: "Use $nativeui-architect to audit this app and recommend the backend, local run, repository, and deployment plan."

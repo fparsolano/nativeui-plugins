@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Connect"
+  short_description: "Wire behavior into both native targets"
+  default_prompt: "Use $nativeui-connect to wire this functionality into matching Android and iOS connector classes."

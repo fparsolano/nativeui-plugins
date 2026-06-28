@@ -1,0 +1,13 @@
+{
+  "name": "nativeui-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NativeUI Claude plugin toolchain (pure-Node bin/*.mjs) + self-tests. No runtime npm dependencies.",
+  "type": "module",
+  "scripts": {
+    "test": "node test/run.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

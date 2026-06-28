@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Run"
+  short_description: "Build and launch on emulator or simulator"
+  default_prompt: "Use $nativeui-run to build and launch this NativeUI app on the local emulator and simulator."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Test"
+  short_description: "Generate native contract tests"
+  default_prompt: "Use $nativeui-test to generate Android and iOS tests for this exported NativeUI app."

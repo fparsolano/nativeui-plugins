@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI App"
+  short_description: "Idea to native iOS and Android projects"
+  default_prompt: "Use $nativeui-app to turn this app idea into a complete NativeUI project and native exports."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI"
+  short_description: "Full app authoring, import, export, wiring"
+  default_prompt: "Use $nativeui to build or update this NativeUI app end to end for iOS and Android."
