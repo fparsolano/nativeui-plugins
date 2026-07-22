@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Test"
+  short_description: "Generate target-specific action contract tests"
+  default_prompt: "Use $nativeui-test to generate contract and smoke tests for every selected NativeUI target."

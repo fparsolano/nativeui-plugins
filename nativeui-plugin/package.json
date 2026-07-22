@@ -1,0 +1,13 @@
+{
+  "name": "nativeui-plugin",
+  "version": "0.2.0",
+  "private": true,
+  "description": "NativeUI all-target AI workflow toolchain and self-tests. No runtime npm dependencies.",
+  "type": "module",
+  "scripts": {
+    "test": "node test/run.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

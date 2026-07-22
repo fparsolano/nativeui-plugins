@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Connect"
+  short_description: "Wire equivalent logic into selected targets"
+  default_prompt: "Use $nativeui-connect to derive one logic plan and implement it in every selected target seam."

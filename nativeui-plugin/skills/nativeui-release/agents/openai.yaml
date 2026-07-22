@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Release"
+  short_description: "Build and release every NativeUI target"
+  default_prompt: "Use $nativeui-release to resolve missing render, host, signing, and distribution choices, then diagnose, build, validate, and prepare every selected target."

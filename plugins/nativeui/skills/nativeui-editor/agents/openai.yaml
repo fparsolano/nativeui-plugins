@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Editor"
+  short_description: "Safely round-trip projects and individual screens"
+  default_prompt: "Use $nativeui-editor to resume my editor work and update one screen without disturbing the rest of the app."

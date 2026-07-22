@@ -1,0 +1,290 @@
+{
+  "version": 2,
+  "description": "Capability coverage contract for the Codex-first NativeUI developer-agent surface. Tests keep rules, skills, tools, review gates, and mirrored docs synced when NativeUI gains new project features.",
+  "features": [
+    {
+      "id": "all-target-scope",
+      "description": "Every declared NativeUI target has an explicit create, edit, logic, run, test, and release disposition.",
+      "rules": [
+        "Bare mobile uses the stable flagship pair, bare web uses authored HTML plus static, and bare desktop uses Rust; alternatives remain explicit.",
+        "Web, Rust, C#, desktop, and mobile requests resolve to registered target IDs and retain beta labels until their gates pass.",
+        "Present macOS SwiftUI as an Apple-native desktop alternative that requires a separately scoped/new exporter; never advertise iOS SwiftUI as desktop output.",
+        "Unknown capabilities are forbidden: declarations are implemented, compiled away, or gated for every target."
+      ],
+      "tools": ["nui-capabilities.mjs", "nui-export.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["backend.native-target-missing", "backend.connector-parity"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["mobile-flagship", "web-html", "macOS SwiftUI", "separately scoped/new", "A target remains beta"]
+        },
+        {
+          "path": "capabilities/nativeui-targets.json",
+          "terms": ["deliveryProfiles", "ios-swiftui", "web-astro", "desktop-all"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["backend.native-target-missing", "backend.connector-parity"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["fails when Android and iOS connector class sets diverge"]
+        }
+      ],
+      "tests": ["test/final-review.test.mjs", "test/codex-parity.test.mjs"]
+    },
+    {
+      "id": "project-sync-guarded",
+      "description": "project.json changes are guarded against stale cloud/editor writes.",
+      "rules": [
+        "Check status before changing cloud-backed projects.",
+        "Push with expectedRevision and fail closed on stale writes."
+      ],
+      "tools": ["nui-project-sync.mjs"],
+      "reviewGates": ["expectedRevision", "409"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["guarded editor/project synchronization", "nui-editor handoff|resume|publish"]
+        },
+        {
+          "path": "bin/nui-project-sync.mjs",
+          "terms": ["status|pull|push", "expectedRevision"]
+        },
+        {
+          "path": "test/project-sync.test.mjs",
+          "terms": ["expectedRevision", "409"]
+        }
+      ],
+      "tests": ["test/project-sync.test.mjs", "test/codex-parity.test.mjs"]
+    },
+    {
+      "id": "account-secret-storage",
+      "description": "API keys and database credentials are stored account-side, never in project/native/source artifacts.",
+      "rules": [
+        "Register API/database library metadata in project.json.",
+        "Put secret values through account-side secret endpoints via stdin only."
+      ],
+      "tools": ["nui-library.mjs"],
+      "reviewGates": ["put-secret requires stdin", "Firebase-looking web API key"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["Store secrets only in account secret storage", "put-secret --secret-stdin"]
+        },
+        {
+          "path": "bin/nui-library.mjs",
+          "terms": ["Secrets are never written to project.json", "put-secret"]
+        },
+        {
+          "path": "test/library.test.mjs",
+          "terms": ["put-secret requires stdin", "profile secret endpoint"]
+        },
+        {
+          "path": "test/no-local-firebase-auth.test.mjs",
+          "terms": ["Identity Toolkit", "Firebase-looking web API key"]
+        }
+      ],
+      "tests": ["test/library.test.mjs", "test/no-local-firebase-auth.test.mjs"]
+    },
+    {
+      "id": "design-agent",
+      "description": "Loose, non-HTML, interaction-free, or non-responsive inputs produce a tested NativeUI design guide before authoring.",
+      "rules": [
+        "Invoke nativeui-design when the source is not production-ready HTML.",
+        "Capture delivery targets, responsive parent constraints, primary journey, motion, UX state, accessibility, and implementation guidance."
+      ],
+      "tools": ["nui-design-guide.mjs", "nui-responsive-audit.mjs"],
+      "reviewGates": ["nativeui-design-guide.md"],
+      "files": [
+        {
+          "path": "skills/nativeui-design/SKILL.md",
+          "terms": ["nativeui-design-guide.md", "parent-constraint matrix", "delivery surface"]
+        },
+        {
+          "path": "bin/nui-design-guide.mjs",
+          "terms": ["Delivery Targets", "Parent Constraint Matrix", "Dynamic State Flow"]
+        },
+        {
+          "path": "test/agent-artifacts.test.mjs",
+          "terms": ["nui-design-guide", "design guide contract"]
+        },
+        {
+          "path": "test/skill-inventory.test.mjs",
+          "terms": ["nativeui-design", "styling guide"]
+        }
+      ],
+      "tests": ["test/agent-artifacts.test.mjs", "test/skill-inventory.test.mjs"]
+    },
+    {
+      "id": "architect-agent",
+      "description": "Backend/deployment work is gated by a tested architecture record and explicit approval.",
+      "rules": [
+        "Audit existing repo/backend/deployment shape before choosing a stack.",
+        "Record exact client targets, web rendering and hosting, origins, auth/cache policy, and distribution.",
+        "Do not scaffold, deploy, or wire backend work until the architecture record is approved."
+      ],
+      "tools": ["nui-architecture.mjs", "nui-backend-plan.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["architecture.missing", "architecture.unapproved", "architecture.sections-missing"],
+      "files": [
+        {
+          "path": "skills/nativeui-architect/SKILL.md",
+          "terms": ["nativeui-architecture.md", "approval"]
+        },
+        {
+          "path": "skills/nativeui-backend/SKILL.md",
+          "terms": ["nativeui-architect", "approved"]
+        },
+        {
+          "path": "bin/nui-architecture.mjs",
+          "terms": ["Selected Delivery Targets", "Client Delivery And Hosting", "--require-approved", "User approved this architecture"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["architecture.missing", "architecture.unapproved"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["approved architecture", "architecture.missing"]
+        }
+      ],
+      "tests": ["test/agent-artifacts.test.mjs", "test/final-review.test.mjs", "test/skill-inventory.test.mjs"]
+    },
+    {
+      "id": "clean-prod-default",
+      "description": "Clean/prod native export is the default; beta is reserved for parity instrumentation.",
+      "rules": [
+        "Default exports should be runnable production-style native projects.",
+        "Use beta only when the parity harness is explicitly needed."
+      ],
+      "tools": ["nui-export.mjs", "nui-run.mjs"],
+      "reviewGates": ["--beta"],
+      "files": [
+        {
+          "path": "README.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "skills/nativeui-export/SKILL.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "skills/nativeui-run/SKILL.md",
+          "terms": ["clean/prod", "--beta"]
+        },
+        {
+          "path": "bin/nui-export.mjs",
+          "terms": ["CLEAN", "--beta"]
+        }
+      ],
+      "tests": ["test/fail-closed.test.mjs", "test/node-check.test.mjs"]
+    },
+    {
+      "id": "repeater-data-coverage",
+      "description": "Repeaters preserve preview rows and require registered API/database data sources for live data.",
+      "rules": [
+        "Provide sampleItems for native preview expansion.",
+        "Register live data sources as API/database library items before connector wiring."
+      ],
+      "tools": ["nui-backend-plan.mjs", "nui-connectors-plan.mjs", "nui-final-review.mjs"],
+      "reviewGates": ["repeater.datasource-unregistered", "repeater.datasource-live-unregistered"],
+      "files": [
+        {
+          "path": "skills/nativeui-developer/SKILL.md",
+          "terms": ["repeater.sampleItems", "sampleItems"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["repeater.datasource-unregistered", "sampleItems"]
+        },
+        {
+          "path": "bin/nui-backend-plan.mjs",
+          "terms": ["repeaters", "sampleItems"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["repeater.datasource-live-unregistered", "sampleItems"]
+        }
+      ],
+      "tests": ["test/backend-plan.test.mjs", "test/final-review.test.mjs"]
+    },
+    {
+      "id": "gradient-import-scope",
+      "description": "Radial gradients are supported; conic/repeating gradients are still guarded as degraded import surface.",
+      "rules": [
+        "Use supported linear-gradient/radial-gradient for native fidelity.",
+        "Warn on conic/repeating gradient usage."
+      ],
+      "tools": ["nui-final-review.mjs"],
+      "reviewGates": ["css.gradient-unsupported"],
+      "files": [
+        {
+          "path": "skills/nativeui/references/authoring-rules.md",
+          "terms": ["radial-gradient", "conic-gradient"]
+        },
+        {
+          "path": "bin/nui-final-review.mjs",
+          "terms": ["radial-gradient", "conic-gradient"]
+        },
+        {
+          "path": "test/final-review.test.mjs",
+          "terms": ["radial gradients", "conic gradients"]
+        }
+      ],
+      "tests": ["test/final-review.test.mjs"]
+    },
+    {
+      "id": "authored-web-lane-family",
+      "description": "Vanilla HTML, React, Vue, Angular, and Astro are explicit authored-source PWA lanes with static or SSR guidance and developer-owned seams.",
+      "rules": [
+        "Default bare web requests to vanilla HTML plus static after offering all five lanes and render-mode tradeoffs.",
+        "Compile responsive layout and dynamic flow into lane-native source without iframes, shipped project models, or generic runtime interpreters.",
+        "Preserve app-actions, data-adapters, and custom-components while regenerating contracts and emitting .new candidates for changed implementations."
+      ],
+      "tools": ["nui-capabilities.mjs", "nui-connectors-plan.mjs", "nui-test-gen.mjs"],
+      "files": [
+        {
+          "path": "skills/nativeui/references/delivery-targets.md",
+          "terms": ["web-html", "web-react", "web-vue", "web-angular", "web-astro", "runtime model interpreters"]
+        },
+        {
+          "path": "skills/nativeui/references/backend-contract.md",
+          "terms": ["app-actions.*", "data-adapters.*", "custom-components.*", ".new"]
+        },
+        {
+          "path": "bin/nui-connectors-plan.mjs",
+          "terms": ["app-actions", "data-adapters", "custom-components", "changedContract"]
+        },
+        {
+          "path": "test/connectors-plan-web.test.mjs",
+          "terms": ["web-html", "web-react", "runtime.js"]
+        }
+      ],
+      "tests": ["test/connectors-plan-web.test.mjs", "test/test-gen-web.test.mjs", "test/full-target-support.test.mjs"]
+    },
+    {
+      "id": "rust-first-class-targets",
+      "description": "Rust desktop, iOS, Android, and web are registered first-class target lanes with a shared durable app_actions.rs seam and explicit beta gates.",
+      "rules": [
+        "Resolve Rust requests to rust-desktop, rust-ios, rust-android, or rust-web and never silently omit a selected host.",
+        "Rust uses the asynchronous NuiActionResult contract through app_actions.rs while legacy synchronous hooks remain compatible."
+      ],
+      "tools": ["nui-export.mjs", "nui-run.mjs", "nui-connectors-plan.mjs", "nui-test-gen.mjs"],
+      "files": [
+        {
+          "path": "skills/nativeui-export/SKILL.md",
+          "terms": ["rust-desktop", "app_actions.rs"]
+        },
+        {
+          "path": "skills/nativeui-connect/SKILL.md",
+          "terms": ["app_actions.rs", "NuiActionResult"]
+        },
+        {
+          "path": "bin/nui-export.mjs",
+          "terms": ["rust", "Rust and C#"]
+        }
+      ],
+      "tests": ["test/export-rust.test.mjs", "test/run-rust.test.mjs", "test/connectors-plan-rust.test.mjs", "test/test-gen-rust.test.mjs"]
+    }
+  ]
+}

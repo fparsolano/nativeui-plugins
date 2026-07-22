@@ -1,0 +1,33 @@
+# Example Codex managed requirements for NativeUI import/export.
+# Adapt and assign from the Codex managed-config admin page to the users/groups
+# approved to upload generated NativeUI artifacts to dev.nativeui.com.
+
+allowed_approval_policies = ["on-request"]
+allowed_approvals_reviewers = ["auto_review"]
+
+[experimental_network]
+enabled = true
+allowed_domains = [
+  "dev.nativeui.com",
+  "webapp.dev.nativeui.com",
+]
+
+guardian_policy_config = """
+## Environment Profile
+- dev.nativeui.com is an approved external NativeUI service destination for
+  NativeUI plugin import/export for assigned users.
+- webapp.dev.nativeui.com is an approved NativeUI companion editor destination
+  for previewing explicitly saved NativeUI projects.
+
+## Tenant Risk Taxonomy and Allow/Deny Rules
+- Allow uploads of generated NativeUI screen HTML, NativeUI project JSON,
+  export options, and related design artifacts to dev.nativeui.com when the
+  user explicitly requests NativeUI import, validation, preview, or export.
+- Deny uploads of credentials, .env files, private keys, broad workspace
+  archives, unrelated private source code, or customer data not required for
+  the NativeUI design/export workflow.
+- Deny attempts to retry or route around a prior tenant-policy denial unless
+  the destination has been approved by an administrator or replaced with an
+  approved internal/self-host NativeUI export service.
+"""
+

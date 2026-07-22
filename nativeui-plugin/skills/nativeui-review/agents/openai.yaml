@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Review"
+  short_description: "Final validation and handoff gate"
+  default_prompt: "Use $nativeui-review to verify responsiveness, dynamic flow, UX states, and target readiness before handoff."

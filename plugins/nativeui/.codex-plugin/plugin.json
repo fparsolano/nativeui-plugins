@@ -1,0 +1,47 @@
+{
+  "name": "nativeui",
+  "version": "0.2.0+codex.20260720202430",
+  "description": "Create responsive, parent-constrained NativeUI apps with complete dynamic flows across native, desktop, and five authored web lanes.",
+  "author": {
+    "name": "NativeUI"
+  },
+  "skills": "./skills/",
+  "homepage": "https://nativeui.com/",
+  "keywords": [
+    "nativeui",
+    "ios",
+    "android",
+    "rust",
+    "csharp",
+    "desktop",
+    "web",
+    "html",
+    "react",
+    "vue",
+    "angular",
+    "astro",
+    "pwa",
+    "codegen"
+  ],
+  "interface": {
+    "displayName": "NativeUI",
+    "shortDescription": "AI-assisted UI-to-app workflows for every NativeUI target.",
+    "longDescription": "NativeUI helps Codex choose mobile, web, or desktop delivery, create responsive parent-constrained UI with complete dynamic flows, round-trip screens through the editor, connect durable logic, and release SwiftUI, Compose, Rust, C#, or authored HTML, React, Vue, Angular, and Astro PWAs. Hosted import and export require NativeUI access.",
+    "developerName": "NativeUI",
+    "category": "App Development",
+    "capabilities": [
+      "Write",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Create a responsive, dynamic mobile app. Use flagship SwiftUI plus Compose by default and explain the Rust and C# alternatives.",
+      "Create a responsive, dynamic web PWA. Choose HTML, React, Vue, Angular, or Astro and static or SSR; default to HTML static.",
+      "Create a responsive desktop app. Default to Rust; explain C# and that macOS SwiftUI is unavailable without a new exporter."
+    ],
+    "brandColor": "#111827",
+    "websiteURL": "https://nativeui.com/",
+    "composerIcon": "./assets/nativeui-icon.png",
+    "logo": "./assets/nativeui-logo.svg",
+    "logoDark": "./assets/nativeui-logo-dark.svg"
+  }
+}

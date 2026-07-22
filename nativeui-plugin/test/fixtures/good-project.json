@@ -1,0 +1,34 @@
+{
+  "version": 4,
+  "projectName": "Fixture App",
+  "stages": [
+    {
+      "name": "Home",
+      "stageId": "stage-1",
+      "stageWidth": 412,
+      "stageHeight": 915,
+      "rootNodes": [
+        {
+          "kind": "javafx.scene.layout.VBox",
+          "id": "screen",
+          "children": [
+            {
+              "kind": "javafx.scene.control.Label",
+              "id": "banner_title",
+              "text": "Welcome"
+            },
+            {
+              "kind": "javafx.scene.control.Button",
+              "id": "login_button",
+              "text": "Log in"
+            },
+            {
+              "kind": "javafx.scene.control.TextField",
+              "id": "email_field"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

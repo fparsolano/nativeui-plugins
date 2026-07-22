@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI"
+  short_description: "Create, edit, connect, run, and release apps"
+  default_prompt: "Use $nativeui to resolve the mobile, web, or desktop delivery brief, then build or update this responsive, parent-constrained, dynamic app and its complete user flow."

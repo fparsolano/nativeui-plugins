@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <style>
+    /* Intrinsically responsive, parent-constrained stage. */
+    body { position: relative; width: 100%; min-width: 0; min-height: 100vh; margin: 0;
+           background: linear-gradient(180deg, #0f172a, #1e293b);
+           font-family: Inter, system-ui, sans-serif; color: #e2e8f0; }
+
+    #header { display: flex; align-items: center; justify-content: space-between;
+              min-height: 64px; padding: 0 20px; }
+    #title { font-size: 22px; font-weight: 700; margin: 0; }
+    /* a pulsing "live" dot — @keyframes -> NativeUI timeline (runs on device) */
+    #live_dot { width: 12px; height: 12px; border-radius: 6px; background: #22c55e;
+                animation: pulse 1.4s ease-in-out infinite alternate; }
+    @keyframes pulse { from { opacity: .35; } to { opacity: 1; } }
+
+    /* hero slides in on load; relative + left => translate (no layout disturbance) */
+    #hero { position: relative; margin: 8px 20px 16px; padding: 20px; border-radius: 18px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            box-shadow: 0 10px 30px rgba(99,102,241,.35);
+            animation: slideIn 2.4s ease-in-out infinite; }
+    @keyframes slideIn { 0% { left: 0; opacity: .6; } 100% { left: 16px; opacity: 1; } }
+    #hero_value { font-size: 32px; font-weight: 800; margin: 4px 0 0; }
+
+    /* Content-driven reflow: add columns only when the stat cards have room. */
+    #stats { width: 100%; min-width: 0; max-width: 74rem; margin-inline: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 12px; padding: 0 20px; box-sizing: border-box; }
+    .stat  { width: 100%; padding: 16px; border-radius: 14px; background: #1f2937; }
+    .stat_n { font-size: 24px; font-weight: 700; }
+
+    #cta { display: block; margin: 20px; padding: 14px; border: none; border-radius: 12px;
+           background: #6366f1; color: #fff; font-size: 16px; font-weight: 600; }
+    #cta:hover { animation: glow .4s ease-in forwards; }
+    #refresh_status { display: none; margin: 0 20px; color: #86efac; }
+    @keyframes glow { to { background: #ec4899; } }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <h1 id="title">Dashboard</h1>
+    <div id="live_dot"></div>
+  </header>
+
+  <section id="hero">
+    <div id="hero_label">Revenue today</div>
+    <div id="hero_value">$12,840</div>
+  </section>
+
+  <main id="stats">
+    <div class="stat" id="stat_orders"><div id="stat_orders_n" class="stat_n">320</div>Orders</div>
+    <div class="stat" id="stat_users"><div id="stat_users_n" class="stat_n">1,204</div>Active users</div>
+    <div class="stat" id="stat_refunds"><div id="stat_refunds_n" class="stat_n">7</div>Refunds</div>
+  </main>
+
+  <!-- letter-first id => stable action/test identity in every selected target; the portable URL action runs directly -->
+  <button id="refresh_button" type="button" data-nui-on-tap="show:#refresh_status">Refresh data</button>
+  <p id="refresh_status">Success — dashboard data refreshed.</p>
+  <a id="cta" href="https://example.com/reports/detail">View full report</a>
+</body>
+</html>

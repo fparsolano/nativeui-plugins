@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "nativeui",
+  "displayName": "NativeUI",
+  "description": "Create responsive, dynamic NativeUI apps with complete flows, logic, local tooling, tests, packaging, and releases across native, desktop, and web targets.",
+  "version": "0.2.0",
+  "author": { "name": "NativeUI" },
+  "category": "app-development",
+  "keywords": ["nativeui", "ios", "android", "mobile", "design", "backend", "deploy", "html", "pwa", "csharp", "rust", "desktop", "cross-platform"]
+}

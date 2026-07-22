@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Developer"
+  short_description: "Codex-canonical functionality orchestration"
+  default_prompt: "Use $nativeui-developer to resolve the delivery brief, then implement this dynamic flow with responsive parent-owned constraints consistently across every selected NativeUI target."

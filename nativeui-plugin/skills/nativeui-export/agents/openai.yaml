@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Export"
+  short_description: "Export project.json to any NativeUI target"
+  default_prompt: "Use $nativeui-export to export this project.json to the selected native, desktop, and web targets."

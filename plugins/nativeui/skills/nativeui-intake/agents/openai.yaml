@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Intake"
+  short_description: "Normalize source material before authoring"
+  default_prompt: "Use $nativeui-intake to inspect these references and capture delivery surface, responsive parent constraints, dynamic flow, assets, and unresolved questions in a NativeUI intake bundle."

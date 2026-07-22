@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI App"
+  short_description: "Idea to complete multi-target NativeUI app"
+  default_prompt: "Use $nativeui-app to choose the appropriate mobile, web, or desktop lane and turn this idea into a responsive, parent-constrained NativeUI project with complete navigation and UX states."
