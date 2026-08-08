@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Design"
+  short_description: "Responsive reflow, constraints, UX, and motion"
+  default_prompt: "Use $nativeui-design to resolve the delivery surface, then define fluid parent constraints, structural responsive reflow, a dynamic journey, and complete UX states for this app."

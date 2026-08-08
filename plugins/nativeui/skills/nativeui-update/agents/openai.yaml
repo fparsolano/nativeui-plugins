@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Update"
+  short_description: "Round-trip-safe single-screen updates"
+  default_prompt: "Use $nativeui-update to safely update this responsive screen while preserving its dynamic flow and native wiring."

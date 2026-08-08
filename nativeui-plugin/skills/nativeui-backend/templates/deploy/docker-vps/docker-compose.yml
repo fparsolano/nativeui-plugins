@@ -1,0 +1,31 @@
+# Self-hosted: NativeUI backend behind Caddy (automatic HTTPS).
+# 1. Point api.yourapp.com's DNS A/AAAA record at this VM's public IP.
+# 2. Put real values in .env (NEVER commit it; see DEPLOY.md).
+# 3. docker compose up -d   ->   Caddy provisions a Let's Encrypt cert and proxies to the app.
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    env_file: .env            # ALLOWED_ORIGINS, API_TOKEN, etc. — not committed
+    environment:
+      PORT: "8787"
+    expose:
+      - "8787"                # internal only; not published to the host
+    # No `ports:` — only Caddy is internet-facing.
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data       # persists issued certs across restarts
+      - caddy_config:/config
+    depends_on:
+      - backend
+
+volumes:
+  caddy_data:
+  caddy_config:

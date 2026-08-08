@@ -1,0 +1,20 @@
+{
+  "name": "nativeui-marketplace",
+  "interface": {
+    "displayName": "NativeUI"
+  },
+  "plugins": [
+    {
+      "name": "nativeui",
+      "source": {
+        "source": "local",
+        "path": "./plugins/nativeui"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "App Development"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": 9,
+  "stages": [
+    {
+      "name": "Home",
+      "rootNodes": [
+        {
+          "kind": "javafx.scene.control.NotAThing",
+          "id": "1bad",
+          "layoutX": "oops",
+          "children": "not-an-array"
+        }
+      ]
+    },
+    {
+      "name": "Empty",
+      "rootNodes": []
+    }
+  ]
+}

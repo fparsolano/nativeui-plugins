@@ -1,0 +1,5 @@
+# Add this block to ~/.codex/config.toml after resolving the installed plugin path.
+# Codex-plugin manifests intentionally do not declare mcpServers.
+[mcp_servers.nativeui]
+command = "node"
+args = ["C:/path/to/plugins/nativeui/mcp/server.mjs"]

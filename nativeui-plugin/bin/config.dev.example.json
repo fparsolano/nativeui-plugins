@@ -1,0 +1,5 @@
+{
+  "exportServiceUrl": "https://dev.nativeui.com",
+  "billingApiUrl": "https://dev.nativeui.com/api/billing",
+  "exportAuthMode": "nativeui"
+}

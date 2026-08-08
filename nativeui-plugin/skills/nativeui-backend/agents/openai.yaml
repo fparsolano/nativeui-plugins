@@ -1,0 +1,4 @@
+interface:
+  display_name: "NativeUI Backend"
+  short_description: "Backend server scaffolding and deployment"
+  default_prompt: "Use $nativeui-backend to scaffold and deploy the approved backend for this NativeUI project."

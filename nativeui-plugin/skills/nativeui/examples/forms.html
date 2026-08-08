@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Create Account</title>
+  <style>
+    /* Intrinsically responsive, parent-constrained stage. Mirrors the NativeUI Forms recipe end to end. */
+    body { position: relative; width: 100%; min-width: 0; min-height: 100vh; margin: 0;
+           background: #ffffff; color: #14161c; font-family: Inter, system-ui, sans-serif; }
+    #form { width: 100%; min-width: 0; max-width: 70rem; margin-inline: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; padding: clamp(20px, 3vw, 32px); box-sizing: border-box; }
+    #heading { grid-column: 1 / -1; font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+
+    /* A labelled field = column of <label> + control. */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 13px; font-weight: 600; color: #374151; }
+    /* type=text/email -> TextField, password -> PasswordField, select -> ComboBox. */
+    input[type=text], input[type=email], input[type=password], select, textarea {
+      height: 44px; border: 1px solid #cdd3dd; border-radius: 10px; padding: 0 12px;
+      font-size: 15px; background: #fff; }
+    textarea { height: 84px; padding: 10px 12px; resize: none; }
+
+    /* Radio group: same name=... binds the radios into one mutual-exclusion ToggleGroup. */
+    .radios { display: flex; gap: 18px; }
+    .radio { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+    .radios input[type=radio], .check-row input[type=checkbox] { width: 20px; height: 20px; }
+
+    .check-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; font-size: 15px; }
+
+    /* type=range -> Slider. */
+    input[type=range] { width: 100%; }
+
+    /* type=submit -> Button. */
+    .submit { grid-column: 1 / -1; height: 48px; border: none; border-radius: 24px; background: #2f6bff; color: #fff;
+              font-size: 16px; font-weight: 700; margin-top: 6px; }
+    .form-state { display: none; grid-column: 1 / -1; padding: 12px; border-radius: 10px; }
+    #form_error { color: #991b1b; background: #fee2e2; }
+    #form_success { color: #166534; background: #dcfce7; }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <h1 id="heading">Create account</h1>
+
+    <div class="field">
+      <label for="full_name">Full name</label>
+      <input type="text" id="full_name" placeholder="Jane Doe" value="Frank Parsolano">
+    </div>
+
+    <div class="field">
+      <label for="email_address">Email</label>
+      <input type="email" id="email_address" placeholder="you@example.com" value="frank@example.com">
+    </div>
+
+    <div class="field">
+      <label for="user_password">Password</label>
+      <input type="password" id="user_password" placeholder="At least 8 characters">
+    </div>
+
+    <div class="field">
+      <label for="bio_notes">Notes</label>
+      <textarea id="bio_notes">Ship to the front desk.</textarea>
+    </div>
+
+    <div class="field">
+      <label for="plan_select">Plan</label>
+      <select id="plan_select">
+        <option>Free</option>
+        <option selected>Pro &mdash; $12/mo</option>
+        <option>Team &mdash; $29/mo</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Payment method</label>
+      <div class="radios">
+        <div class="radio"><input type="radio" id="pay_card" name="payment" checked> Card</div>
+        <div class="radio"><input type="radio" id="pay_paypal" name="payment"> PayPal</div>
+        <div class="radio"><input type="radio" id="pay_applepay" name="payment"> Apple&nbsp;Pay</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="budget_range">Monthly budget</label>
+      <input type="range" id="budget_range" min="0" max="100" value="40">
+    </div>
+
+    <div class="check-row">
+      <input type="checkbox" id="receipts_check" checked>
+      <span>Email me receipts</span>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="newsletter_check">
+      <span>Subscribe to the newsletter</span>
+    </div>
+
+    <button type="submit" class="submit" id="submit_button">Create account</button>
+    <p id="form_error" class="form-state">Validation error — review the highlighted fields and retry.</p>
+    <p id="form_success" class="form-state">Success — your account is ready.</p>
+  </form>
+</body>
+</html>

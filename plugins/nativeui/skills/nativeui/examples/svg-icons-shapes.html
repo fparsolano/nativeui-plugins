@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Icons</title>
+  <style>
+    /* Intrinsically responsive, parent-constrained stage. Showcases NativeUI's inline-SVG / vector-paint surface:
+       stroke icons + fill icons (24-grid, currentColor), basic shapes, a path-based logo,
+       an SVG <linearGradient>, an SVG <clipPath>, and an SVG <text> label. Inline <svg> is
+       the icon path on every lane (no icon font) — see references/authoring-rules.md. */
+    body { position: relative; width: 100%; min-width: 0; min-height: 100vh; margin: 0;
+           background: #f5f6f8; color: #1a1d24; font-family: Inter, system-ui, sans-serif; }
+    #screen { width: 100%; min-width: 0; max-width: 74rem; margin-inline: auto; display: flex; flex-direction: column; gap: 22px; padding: clamp(20px, 3vw, 32px); box-sizing: border-box; }
+    .caption { font-size: 13px; font-weight: 600; color: #6b7280; }
+    .card { background: #fff; border-radius: 16px; padding: 16px;
+            box-shadow: 0 2px 8px rgba(26,29,36,0.06); }
+
+    /* Toolbar of LINE icons. color: on the row sets currentColor; every icon below uses
+       stroke="currentColor", so one CSS color recolors the whole set (toolbar idiom). */
+    .toolbar { display: flex; flex-direction: row; align-items: center;
+               justify-content: space-between; color: #2563eb; }
+    .toolbar svg { width: 28px; height: 28px; }
+
+    /* Row of FILL (solid) icons — fill="currentColor", inherited from the row color. */
+    .solid-row { width: 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 18px; align-items: center;
+                 color: #7c3aed; }
+    .solid-row svg { width: 30px; height: 30px; }
+
+    /* Basic SVG shapes: rect / circle / ellipse / line / polyline / polygon. */
+    .shape-row { width: 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 14px; align-items: center; }
+
+    /* Stat card with an SVG donut / progress ring (stroke-dasharray arc) + an inner SVG <text>. */
+    .stat { display: flex; flex-direction: row; align-items: center; gap: 18px; }
+    .stat-meta { display: flex; flex-direction: column; gap: 4px; }
+    .stat-label { font-size: 13px; color: #6b7280; }
+    .stat-value { font-size: 22px; font-weight: 700; }
+    #icon_detail { min-height: 44px; display: flex; align-items: center; color: #2563eb;
+                   border: 0; background: transparent; padding: 0; font: inherit; }
+    #vector_detail { display: none; padding: 16px; border-left: 4px solid #2563eb;
+                     border-radius: 12px; background: #dbeafe; color: #1e3a8a; }
+  </style>
+</head>
+<body>
+  <main id="screen">
+
+    <!-- 1. LINE-ICON TOOLBAR: 24-grid, fill="none" + stroke="currentColor" + stroke-width.
+         The row's color:#2563eb is the currentColor every icon stroke resolves to. -->
+    <div class="caption">Line icons — 24-grid, stroke="currentColor", one CSS color recolors all</div>
+    <div class="card toolbar" id="toolbar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10 21a2 2 0 004 0"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c1.6-4 4.4-6 8-6s6.4 2 8 6"/></svg>
+    </div>
+
+    <!-- 2. SOLID (FILL) ICONS: fill="currentColor" inherits the row color:#7c3aed.
+         (Default SVG fill is BLACK when fill is omitted — always set it explicitly.) -->
+    <div class="caption">Solid icons — fill="currentColor"</div>
+    <div class="card solid-row" id="solid_row">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21s-7-4.4-9.5-8.6C.8 9.3 2.3 5.5 6 5.5c2 0 3.2 1.1 4 2.2.8-1.1 2-2.2 4-2.2 3.7 0 5.2 3.8 3.5 6.9C19 16.6 12 21 12 21z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 5h18v3H3zM3 10h18v3H3zM3 15h12v3H3z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+    </div>
+
+    <!-- 3. BASIC SHAPES: rect (rounded via rx), circle, ellipse, line, polyline, polygon.
+         Geometry attrs are read directly; fill="none" + stroke draws an outline. -->
+    <div class="caption">Basic shapes — rect · circle · ellipse · line · polyline · polygon</div>
+    <div class="card shape-row" id="shapes">
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <rect x="6" y="6" width="32" height="32" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/></svg>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <circle cx="22" cy="22" r="16" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/></svg>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <ellipse cx="22" cy="22" rx="18" ry="11" fill="#fef3c7" stroke="#d97706" stroke-width="2"/></svg>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <line x1="6" y1="38" x2="38" y2="6" stroke="#7c3aed" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <polyline points="6,30 16,18 26,26 38,8" fill="none" stroke="#ec4899" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <polygon points="22,5 39,18 32,38 12,38 5,18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"
+                 stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- 4. PATH-BASED LOGO with an SVG <linearGradient> fill (define in <defs>, ref via url(#id)).
+         Both fill="url(#…)" and stroke="url(#…)" resolve; <radialGradient> does NOT — use linear. -->
+    <div class="caption">Path logo — SVG &lt;linearGradient&gt; fill (url(#id))</div>
+    <div class="card" id="logo_card" style="display:flex;align-items:center;gap:16px;">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <defs>
+          <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#ec4899"/>
+          </linearGradient>
+        </defs>
+        <path d="M36 6l26 15v30L36 66 10 51V21z" fill="url(#brandGrad)"/>
+        <path d="M26 44V28l10 7 10-7v16" fill="none" stroke="#fff" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="font-size:18px;font-weight:700;">Vectorly</div>
+        <div style="font-size:13px;color:#6b7280;">gradient-filled vector logo</div>
+      </div>
+    </div>
+
+    <!-- 5. SVG <clipPath>: a shape clips an image-rect / gradient-rect to its outline. -->
+    <div class="caption">SVG &lt;clipPath&gt; — a star clips a gradient fill</div>
+    <div class="card" id="clip_card" style="display:flex;align-items:center;gap:16px;">
+      <svg width="96" height="96" viewBox="0 0 96 96">
+        <defs>
+          <linearGradient id="clipFill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#3b82f6"/>
+          </linearGradient>
+          <clipPath id="starClip">
+            <polygon points="48,8 60,38 92,38 66,58 76,90 48,70 20,90 30,58 4,38 36,38"/>
+          </clipPath>
+        </defs>
+        <rect x="0" y="0" width="96" height="96" fill="url(#clipFill)" clip-path="url(#starClip)"/>
+      </svg>
+      <div style="font-size:13px;color:#6b7280;">a &lt;rect&gt; painted with a gradient, clipped to a star &lt;polygon&gt;</div>
+    </div>
+
+    <!-- 6. STAT CARD: SVG donut / progress ring (stroke-dasharray arc, rotate(-90deg) start)
+         + an SVG <text> label centred in the ring. stroke-dashoffset is NOT imported — size
+         the arc with stroke-dasharray alone (arc-length followed by the remaining gap). -->
+    <div class="caption">Progress ring — stroke-dasharray arc + SVG &lt;text&gt; label</div>
+    <div class="card stat" id="stat_card">
+      <svg width="96" height="96" viewBox="0 0 96 96">
+        <circle cx="48" cy="48" r="40" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+        <circle cx="48" cy="48" r="40" fill="none" stroke="#2563eb" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="188 251" transform="rotate(-90 48 48)"/>
+        <text x="48" y="54" fill="#1a1d24" font-size="22" font-weight="700"
+              text-anchor="middle" font-family="Inter, system-ui, sans-serif">75%</text>
+      </svg>
+      <div class="stat-meta">
+        <div class="stat-label">Storage used</div>
+        <div class="stat-value">36.2 GB</div>
+        <div class="stat-label">of 48 GB</div>
+      </div>
+    </div>
+    <button id="icon_detail" type="button" data-nui-on-tap="show:#vector_detail">Show vector details</button>
+    <p id="vector_detail">These vectors retain editable paths, fills, strokes, gradients, and clipping across targets.</p>
+
+  </main>
+</body>
+</html>

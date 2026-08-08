@@ -1,0 +1,5 @@
+{
+  "exportServiceUrl": "https://REPLACE_WITH_NATIVEUI_EXPORT_SERVICE_HOST",
+  "billingApiUrl": "https://REPLACE_WITH_NATIVEUI_BILLING_API_HOST",
+  "exportAuthMode": "nativeui"
+}

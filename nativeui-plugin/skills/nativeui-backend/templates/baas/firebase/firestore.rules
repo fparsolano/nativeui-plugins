@@ -1,0 +1,41 @@
+rules_version = '2';
+
+// NativeUI x Firebase — Firestore security rules starter.
+//
+// Deploy: firebase deploy --only firestore:rules
+// Test:   in the Firebase console → Firestore → Rules → "Rules Playground".
+//
+// Model: each user owns a document under /users/{uid} and a private subcollection of items.
+// A request is allowed only when the caller is signed in AND owns the path. Default-deny:
+// anything not matched below is rejected. Tighten the field checks to your real shape.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: the caller is authenticated and is {uid}.
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // ── /users/{uid} — one profile doc per user ──────────────────────────────
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      // On create/update, only the owner, and don't let them forge a different owner.
+      allow create, update: if isOwner(uid);
+      allow delete: if isOwner(uid);
+
+      // ── /users/{uid}/items/{itemId} — the user's private list ──────────────
+      match /items/{itemId} {
+        allow read: if isOwner(uid);
+        // Require the stored ownerId to match the caller (defense in depth vs path).
+        allow create: if isOwner(uid)
+                      && request.resource.data.ownerId == uid;
+        allow update: if isOwner(uid)
+                      && request.resource.data.ownerId == uid;
+        allow delete: if isOwner(uid);
+      }
+    }
+
+    // Everything else is denied (no catch-all match → default deny).
+  }
+}

@@ -1,0 +1,13 @@
+# Netlify — serve the whole Hono app from one function.
+[build]
+  command = "npm run build --if-present"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Send every request to the single function (Hono routes internally).
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200

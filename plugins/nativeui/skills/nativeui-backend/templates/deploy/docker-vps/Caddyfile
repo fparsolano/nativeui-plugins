@@ -1,0 +1,6 @@
+# Caddy auto-provisions + renews a Let's Encrypt cert for this domain and reverse-proxies to the app.
+# Replace api.yourapp.com with your domain (its DNS must already point at this VM).
+api.yourapp.com {
+	reverse_proxy backend:8787
+	encode gzip
+}
